@@ -1,5 +1,7 @@
 # TOTP auth tool
 
+App built with [Automator](https://support.apple.com/de-de/guide/automator/welcome/mac). Will not work once Automator got removed from MacOS.
+
 ## Prepare:
 
 1. Install depencenies:
