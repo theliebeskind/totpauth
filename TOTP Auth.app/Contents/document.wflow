@@ -220,7 +220,23 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>on run {input, parameters}	if (count of input) is 1 then		if (item 1 of input) is "" then			display notification "Found no files matching '~/.totp_enc_*" with title "TOTP"			error number -128		else			return item 1 of input		end if	end if	set thePath to choose from list input with prompt "Choose encrypted totp file" with cancel without multiple selections allowed	if thePath is false then		error number -128	else		return thePath's item 1	end ifend run</string>
+					<string>on run {input, parameters}
+	activate
+	if (count of input) is 1 then
+		if (item 1 of input) is "" then
+			display notification "Found no files matching '~/.totp_enc_*" with title "TOTP"
+			error number -128
+		else
+			return item 1 of input
+		end if
+	end if
+	set thePath to choose from list input with prompt "Choose encrypted totp file" with cancel without multiple selections allowed
+	if thePath is false then
+		error number -128
+	else
+		return thePath's item 1
+	end if
+end run</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -322,7 +338,16 @@ end run</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>on run {input, parameters}	set ret to display dialog ("Enter password to decrypt '" &amp; input &amp; "'") default answer "" with hidden answer	set pwd to text returned of ret	try		return do shell script "cat " &amp; input &amp; " | openssl aes-256-cbc -d -pass pass:" &amp; pwd	on error		display notification "ERROR: Decrpyption failed!" with title "TOTP"		error number -128	end tryend run</string>
+					<string>on run {input, parameters}
+	set ret to display dialog ("Enter password to decrypt '" &amp; input &amp; "'") default answer "" with hidden answer
+	set pwd to text returned of ret
+	try
+		return do shell script "cat " &amp; input &amp; " | openssl aes-256-cbc -d -pass pass:" &amp; pwd
+	on error
+		display notification "ERROR: Decrpyption failed!" with title "TOTP"
+		error number -128
+	end try
+end run</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -668,7 +693,9 @@ end run</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>on run {input, parameters}	display notification input with title "TOTP"end run</string>
+					<string>on run {input, parameters}
+	display notification input with title "TOTP"
+end run</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
